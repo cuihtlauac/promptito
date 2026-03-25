@@ -11,6 +11,10 @@
 
 - [Promptito Post Format Specification](SPEC.md): Self-contained spec for the structured post format. An LLM can generate a valid post from this document alone.
 
+## Authoring
+
+- [Authoring Workflow](CLAUDE.md): Two-step pipeline — ingestion (human provides facts, agent structures into post.md) and export (node export.mjs <lang> <slug> generates natural language from the structured post). CLAUDE.md is the canonical reference for LLM agents writing promptito posts.
+
 ## Posts
 
 <% for (const post of posts) { -%>
