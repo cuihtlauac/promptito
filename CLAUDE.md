@@ -51,6 +51,8 @@ It must include a link to the source post in promptito format at the end, so cur
 ## Conventions
 
 - No HTML output (yet) — machine-readable formats only
-- BASE_URL in build.mjs is a placeholder, update when hosting is decided
+- Deployed at https://cuihtlauac.pages.dev (Cloudflare Pages). The blog is named "promptito" everywhere in the content; the URL is just the hosting layer.
+- **Publishing**: push an annotated tag (`git tag -a v0.2 -m "Add post: topic; Update: other-topic"`) then `git push --tags`. A GitHub Action builds and deploys to Cloudflare. Tags represent immutable snapshots of all published posts. Tag messages document what changed.
+- **Local deploy**: `npm run deploy` still works for quick manual deploys via wrangler.
 - Post UUIDs should be stable once published
 - Every post MUST include a `references` section in the YAML frontmatter linking to the project and any external resources needed for complete understanding. An LLM reading a post in isolation must be able to follow these links to unroll all context autonomously. At minimum, every post must link to the project repo, the format spec, and the blog feed.

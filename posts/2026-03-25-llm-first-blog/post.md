@@ -43,15 +43,21 @@ assertions:
     object: [20-user-prompts, ~50k-tokens, 5-commits, 12-files]
 related: []
 references:
+  - url: https://cuihtlauac.pages.dev
+    label: promptito (deployed site)
+    description: The live blog — llms.txt, feed.json, and all posts
+  - url: https://cuihtlauac.pages.dev/llms.txt
+    label: llms.txt
+    description: Site index for LLM discovery
+  - url: https://cuihtlauac.pages.dev/feed.json
+    label: JSON Feed
+    description: Full syndication feed with structured metadata
   - url: https://github.com/cuihtlauac/promptito
     label: promptito project repository
     description: Source code, build system, and all posts
   - url: https://github.com/cuihtlauac/promptito/blob/main/SPEC.md
     label: Promptito Post Format Specification
     description: Self-contained spec for the structured post format
-  - url: https://github.com/cuihtlauac/promptito/blob/main/README.md
-    label: README — how to read this blog
-    description: Instructions for human readers
   - url: https://llmstxt.org
     label: llms.txt specification
     description: The standard for LLM-friendly site indexes

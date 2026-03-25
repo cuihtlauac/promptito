@@ -8,8 +8,7 @@ const POSTS_DIR = join(ROOT, "posts");
 const BUILD_DIR = join(ROOT, "build");
 const TEMPLATES_DIR = join(ROOT, "templates");
 
-// Base URL — update when hosting is decided
-const BASE_URL = "https://promptito.example.com";
+const BASE_URL = "https://cuihtlauac.pages.dev";
 
 // ---------------------------------------------------------------------------
 // 1. Discover and parse posts
@@ -133,5 +132,22 @@ console.log("  ✓ robots.txt");
 // ---------------------------------------------------------------------------
 cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
 console.log("  ✓ SPEC.md");
+
+// ---------------------------------------------------------------------------
+// 8. Generate _headers (Cloudflare Pages MIME types)
+// ---------------------------------------------------------------------------
+writeFileSync(
+  join(BUILD_DIR, "_headers"),
+  `/*.jsonld
+  Content-Type: application/ld+json
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/feed.json
+  Content-Type: application/feed+json; charset=utf-8
+`
+);
+console.log("  ✓ _headers");
 
 console.log("\nBuild complete.");

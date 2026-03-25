@@ -15,7 +15,9 @@ Posts here are not written in natural language. They are structured data designe
 
 You choose the language, the length, and the style. The structured format gives the LLM everything it needs to produce a faithful rendering — the ideas are all there, the presentation is up to you.
 
-Raw posts are in [`posts/`](posts/). The full feed is at `feed.json`.
+Raw posts are in [`posts/`](posts/). The full feed is at [`feed.json`](https://cuihtlauac.pages.dev/feed.json).
+
+**Live site**: [cuihtlauac.pages.dev](https://cuihtlauac.pages.dev)
 
 ## Format
 

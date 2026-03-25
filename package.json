@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
+    "deploy": "npm run build && wrangler pages deploy build/ --project-name cuihtlauac --commit-dirty=true",
     "export": "node export.mjs"
   },
   "dependencies": {
