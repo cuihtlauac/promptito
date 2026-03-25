@@ -145,6 +145,20 @@ cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
 console.log("  ✓ SPEC.md");
 
 // ---------------------------------------------------------------------------
+// 9. Copy static root files (verification, etc.)
+// ---------------------------------------------------------------------------
+const STATIC_ROOT_FILES = ["google488dbccdea349010.html"];
+for (const file of STATIC_ROOT_FILES) {
+  const src = join(ROOT, file);
+  try {
+    cpSync(src, join(BUILD_DIR, file));
+    console.log(`  ✓ ${file}`);
+  } catch {
+    // Skip if file doesn't exist
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 8. Generate _headers (Cloudflare Pages MIME types)
 // ---------------------------------------------------------------------------
 writeFileSync(
