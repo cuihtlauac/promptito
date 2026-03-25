@@ -145,7 +145,13 @@ cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
 console.log("  ✓ SPEC.md");
 
 // ---------------------------------------------------------------------------
-// 9. Copy static root files (verification, etc.)
+// 9. Copy CLAUDE.md (authoring workflow for LLM agents)
+// ---------------------------------------------------------------------------
+cpSync(join(ROOT, "CLAUDE.md"), join(BUILD_DIR, "CLAUDE.md"));
+console.log("  ✓ CLAUDE.md");
+
+// ---------------------------------------------------------------------------
+// 10. Copy static root files (verification, etc.)
 // ---------------------------------------------------------------------------
 const STATIC_ROOT_FILES = ["google66acef0986c36d7a.html"];
 for (const file of STATIC_ROOT_FILES) {
