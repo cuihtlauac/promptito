@@ -61,6 +61,7 @@ Rules:
 - Write an accessible technical blog post, conversational in tone
 - Do not invent facts beyond what is in the source
 - Do not include the YAML frontmatter in your output
+- At the end of the article, include a note linking to the source post in promptito format: https://github.com/cuihtlauac/promptito/blob/main/posts/${postDir}/post.md — phrase it naturally, e.g. "This article was generated from a structured source: [read the promptito format version](url)."
 - Output clean Markdown only
 
 Source post:

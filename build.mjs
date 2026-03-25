@@ -112,6 +112,7 @@ const feed = {
     _promptito: {
       assertions: post.assertions || [],
       related: post.related || [],
+      references: post.references || [],
     },
   })),
 };

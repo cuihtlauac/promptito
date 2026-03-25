@@ -21,6 +21,10 @@ assertions:                      # Optional, list of structured claims
     predicate: <string>          # Relationship (e.g. is-a, uses, optimizes-for)
     object: <string or list>     # Target(s) of the relationship
 related: <list of slugs, optional> # Slugs of related posts
+references:                        # Required, list of external links for full context
+  - url: <string, required>        # URL to the resource
+    label: <string, required>      # Short name
+    description: <string, optional> # What this resource provides
 license: <string, required>      # SPDX license identifier (e.g. CC-BY-4.0)
 ---
 ```
@@ -31,6 +35,7 @@ license: <string, required>      # SPDX license identifier (e.g. CC-BY-4.0)
 - **slug**: Used in file paths and URLs. Lowercase, hyphen-separated. Must match the post directory name suffix (e.g. directory `2026-03-25-my-topic` has slug `my-topic`).
 - **summary**: Should be information-dense. Used in `llms.txt`, JSON Feed, and JSON-LD output. No fluff.
 - **assertions**: Subject-predicate-object triples representing key claims. These form a lightweight per-post knowledge graph. Objects can be a single string or a list of strings.
+- **references**: Links to external resources needed for complete understanding. An LLM reading a post in isolation must be able to follow these to unroll all context autonomously. At minimum: the project repo, the format spec, and the blog feed.
 
 ## Markdown Body Conventions
 
@@ -65,6 +70,14 @@ assertions:
     predicate: optimizes-for
     object: [density, structure, semantic-clarity]
 related: []
+references:
+  - url: https://github.com/cuihtlauac/promptito
+    label: promptito project repository
+    description: Source code, build system, and all posts
+  - url: https://github.com/cuihtlauac/promptito/blob/main/SPEC.md
+    label: Promptito Post Format Specification
+  - url: https://github.com/cuihtlauac/promptito/blob/main/feed.json
+    label: JSON Feed
 license: CC-BY-4.0
 ---
 

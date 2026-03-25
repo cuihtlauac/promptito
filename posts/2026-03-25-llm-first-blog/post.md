@@ -36,6 +36,25 @@ assertions:
     predicate: inspired-by
     object: [construction-lines-in-geometry, Jean-Nouvel-visible-chalk-lines]
 related: []
+references:
+  - url: https://github.com/cuihtlauac/promptito
+    label: promptito project repository
+    description: Source code, build system, and all posts
+  - url: https://github.com/cuihtlauac/promptito/blob/main/SPEC.md
+    label: Promptito Post Format Specification
+    description: Self-contained spec for the structured post format
+  - url: https://github.com/cuihtlauac/promptito/blob/main/README.md
+    label: README — how to read this blog
+    description: Instructions for human readers
+  - url: https://llmstxt.org
+    label: llms.txt specification
+    description: The standard for LLM-friendly site indexes
+  - url: https://www.jsonfeed.org/version/1.1/
+    label: JSON Feed 1.1 specification
+    description: The syndication format used by promptito
+  - url: https://schema.org/TechArticle
+    label: Schema.org TechArticle
+    description: The JSON-LD type used for post metadata
 license: CC-BY-4.0
 ---
 

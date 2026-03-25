@@ -46,9 +46,11 @@ The export agent receives:
 3. Tone instructions (first person, accessible technical blog post)
 
 It must not invent facts beyond what is in the source post.
+It must include a link to the source post in promptito format at the end, so curious readers can see the structured original.
 
 ## Conventions
 
 - No HTML output (yet) — machine-readable formats only
 - BASE_URL in build.mjs is a placeholder, update when hosting is decided
 - Post UUIDs should be stable once published
+- Every post MUST include a `references` section in the YAML frontmatter linking to the project and any external resources needed for complete understanding. An LLM reading a post in isolation must be able to follow these links to unroll all context autonomously. At minimum, every post must link to the project repo, the format spec, and the blog feed.

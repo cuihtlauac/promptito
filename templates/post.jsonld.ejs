@@ -20,5 +20,11 @@
     "@type": "Claim",
     "about": a.subject,
     "description": `${a.subject} ${a.predicate} ${Array.isArray(a.object) ? a.object.join(', ') : a.object}`
+  })),
+  "citation": (post.references || []).map(r => ({
+    "@type": "CreativeWork",
+    "name": r.label,
+    "url": r.url,
+    "description": r.description || ""
   }))
 }, null, 2) %>
