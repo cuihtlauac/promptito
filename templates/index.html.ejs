@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>promptito</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 2rem 1rem; color: #111; }
+h1 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+hr { border: none; border-top: 2px solid #111; margin: 1rem 0; }
+h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; }
+p { margin: 0.75rem 0; font-size: 0.95rem; line-height: 1.5; }
+ul { list-style: none; margin: 0.5rem 0; }
+li { margin: 0.5rem 0; font-size: 0.95rem; }
+li::before { content: "\25A1\00a0"; }
+a { color: #111; }
+.date { color: #666; font-size: 0.85rem; }
+.hint { font-size: 0.85rem; line-height: 1.5; margin: 0.75rem 0; }
+.links { margin-top: 2rem; font-size: 0.85rem; }
+.links a { margin-right: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>promptito</h1>
+<hr>
+
+<p>An LLM-first blog. Posts are structured data, not prose.</p>
+
+<p class="hint">To read them, paste a post into the LLM of your choice and ask for what you want: a summary, a translation, a different style. You choose the language, the length, and the format.</p>
+
+<h2>Posts</h2>
+<hr>
+
+<ul>
+<% for (const post of posts) { -%>
+<li><a href="posts/<%= post.slug %>/post.md"><%= post.title %></a> <span class="date">&mdash; <%= new Date(post.date).toISOString().split('T')[0] %></span></li>
+<% } -%>
+</ul>
+
+<h2>Author</h2>
+<hr>
+
+<p><a href="https://github.com/cuihtlauac">Cuihtlauac Alvarado</a></p>
+
+<div class="links">
+<a href="feed.json">Feed</a>
+<a href="llms.txt">llms.txt</a>
+<a href="SPEC.md">Format spec</a>
+<a href="https://github.com/cuihtlauac/promptito">Source</a>
+</div>
+
+</body>
+</html>

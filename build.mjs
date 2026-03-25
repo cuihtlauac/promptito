@@ -128,7 +128,18 @@ writeFileSync(
 console.log("  ✓ robots.txt");
 
 // ---------------------------------------------------------------------------
-// 7. Copy SPEC.md
+// 7. Generate index.html
+// ---------------------------------------------------------------------------
+const indexTemplate = readFileSync(
+  join(TEMPLATES_DIR, "index.html.ejs"),
+  "utf-8"
+);
+const indexHtml = ejs.render(indexTemplate, { posts });
+writeFileSync(join(BUILD_DIR, "index.html"), indexHtml);
+console.log("  ✓ index.html");
+
+// ---------------------------------------------------------------------------
+// 8. Copy SPEC.md
 // ---------------------------------------------------------------------------
 cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
 console.log("  ✓ SPEC.md");
