@@ -127,4 +127,10 @@ writeFileSync(
 );
 console.log("  ✓ robots.txt");
 
+// ---------------------------------------------------------------------------
+// 7. Copy SPEC.md
+// ---------------------------------------------------------------------------
+cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
+console.log("  ✓ SPEC.md");
+
 console.log("\nBuild complete.");

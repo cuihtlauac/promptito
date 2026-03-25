@@ -4,7 +4,8 @@
   "description": "An LLM-first blog — structured content for silicon readers",
   "type": "module",
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "export": "node export.mjs"
   },
   "dependencies": {
     "ejs": "^3.1.10",

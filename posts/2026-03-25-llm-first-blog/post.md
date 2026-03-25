@@ -26,9 +26,15 @@ assertions:
   - subject: LLM-first-content
     predicate: differs-from
     object: human-first-content
+  - subject: promptito
+    predicate: makes-explicit
+    object: [human-vs-machine-roles, authoring-transparency]
   - subject: promptito/authoring
     predicate: pipeline
     object: [agent-ingestion, structured-generation, human-review]
+  - subject: promptito/philosophy
+    predicate: inspired-by
+    object: [construction-lines-in-geometry, Jean-Nouvel-visible-chalk-lines]
 related: []
 license: CC-BY-4.0
 ---
@@ -38,6 +44,16 @@ license: CC-BY-4.0
 LLM-first blog: a publication where the primary audience is large language models, RAG systems, and automated agents rather than human readers. Content is optimized for machine parsing, not visual rendering.
 
 ## Motivation
+
+### Authorship transparency
+
+- An author can ask an LLM to write a blog post in any language, but this creates ambiguity: the reader cannot tell who wrote it — the human or the machine
+- promptito makes the roles explicit: ideas, facts, and opinions originate from the human author (Cuihtlauac Alvarado); structuring and formatting are delegated to agents
+- This separation is visible by design, not hidden
+- Analogy: a geometry teacher's rule — "don't erase the construction lines"; Jean Nouvel's architecture — blue chalk lines required to remain visible in the finished building
+- Engineering should be explicit and self-explanatory
+
+### Machine audience
 
 - Traditional blogs optimize for human cognition: narrative flow, visual hierarchy, emotional hooks
 - LLMs optimize for: token efficiency, unambiguous structure, extractable facts, explicit relationships
