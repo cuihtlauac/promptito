@@ -38,7 +38,7 @@ When the user says "add this to the post", edit `posts/.../post.md` — not any 
 
 ### Export (natural language generation)
 
-Human-readable versions are generated *from* the structured post, not the other way around. Use `node export.mjs <lang> <slug>` (e.g. `node export.mjs fr llm-first-blog`). This spawns a fresh agent context with only the post content and a target language — no project context needed. Output goes to `tmp/<slug>.<lang>.md` for human review.
+Human-readable versions are generated *from* the structured post, not the other way around. Use `./export.sh <lang> <slug>` (e.g. `./export.sh fr llm-first-blog`). This spawns a fresh agent context with only the post content and a target language — no project context needed. Output goes to `tmp/<slug>.<lang>.md` for human review.
 
 The export agent receives:
 1. The full `post.md` content (self-contained: frontmatter + body)
