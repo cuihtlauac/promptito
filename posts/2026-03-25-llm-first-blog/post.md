@@ -35,6 +35,12 @@ assertions:
   - subject: promptito/philosophy
     predicate: inspired-by
     object: [construction-lines-in-geometry, Jean-Nouvel-visible-chalk-lines]
+  - subject: this-post
+    predicate: bootstrapped-via
+    object: single-Claude-Code-session
+  - subject: this-post/metrics
+    predicate: involved
+    object: [20-user-prompts, ~50k-tokens, 5-commits, 12-files]
 related: []
 references:
   - url: https://github.com/cuihtlauac/promptito
@@ -137,3 +143,52 @@ LLM-first blog: a publication where the primary audience is large language model
 - **No stop-word removal / telegraphic style**: modern LLMs handle natural prose; structure > compression tricks
 - **JSON Feed over RSS/Atom**: JSON is native to LLM tool-use pipelines; XML adds parsing overhead
 - **Assertions as triples**: lightweight knowledge graph per post, extractable without NLP
+
+## Genesis: How This Post Was Made
+
+This post is the artifact of its own bootstrapping conversation. The entire blog — format, build system, first post, and spec — was created in a single Claude Code session.
+
+### Conversation metrics
+
+- Model: Claude Opus 4.6 (1M context)
+- User prompts: 20
+- Estimated tokens exchanged: ~50,000 (input + output across all turns)
+- Commits produced: 5
+- Files created: 12 (848 lines)
+- Duration: single session, 2026-03-25
+- The same conversation also produced a French natural language export and a format specification
+
+### Workflow demonstrated
+
+- User provided the concept and high-level direction
+- The agent (Claude Code) researched existing formats via web search
+- The agent proposed an architecture; user refined it through iterative prompts
+- The agent built all code, templates, and content
+- User corrected course multiple times (see quotations below)
+- The result was pushed to GitHub from within the conversation
+
+### Selected prompts (quotations from the author)
+
+> "I want to create a blog. But I don't want to publish in a natural language. I want to publish in a form that is meant to be consumed by llms, not human beings."
+
+The opening prompt that started the project.
+
+> "I don't want to hide my identity, I (Cuihtlauac Alvarado) am the author of the posts, all ideas are mine, this is just playful formatting."
+
+Establishing authorship transparency as a core value.
+
+> "Facts, motivation and anecdote to add: I want to make explicit the way I turn my ideas into artefacts. [...] That also reminds me when my math teacher telling me: don't erase the constructions lines when making a geometrical drawing. Also reminds me the blue chalk lines required to remain visible in a Jean Nouvel building."
+
+The philosophical motivation — making the engineering visible.
+
+> "You got it wrong, don't edit post-fr.md. That's posts/2026-03-25-llm-first-blog/post.md that needs to be edited with the semantic content of what I wrote. Write in the CLAUDE.md, that's the workflow I intend to use."
+
+A course correction that defined the core workflow: the structured post is the source of truth, not the natural language export.
+
+> "When creating a natural language export of a promptito formated blog input data, I'd like an agent to be tasked under a fresh context, with the minimum data so it can work autonomously."
+
+Led to the export pipeline design — a fresh agent context receiving only the post content and target language.
+
+> "Update the first post with ad-hoc links to allow an LLM to unroll everything autonomously."
+
+The insight that posts must be self-contained entry points — an LLM should be able to follow references and reconstruct all context without external guidance.
