@@ -147,7 +147,7 @@ console.log("  ✓ SPEC.md");
 // ---------------------------------------------------------------------------
 // 9. Copy static root files (verification, etc.)
 // ---------------------------------------------------------------------------
-const STATIC_ROOT_FILES = ["google488dbccdea349010.html"];
+const STATIC_ROOT_FILES = ["google66acef0986c36d7a.html"];
 for (const file of STATIC_ROOT_FILES) {
   const src = join(ROOT, file);
   try {
