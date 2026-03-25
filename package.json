@@ -1,0 +1,15 @@
+{
+  "name": "promptito",
+  "version": "0.1.0",
+  "description": "An LLM-first blog — structured content for silicon readers",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "gray-matter": "^4.0.3"
+  },
+  "license": "CC-BY-4.0",
+  "private": true
+}

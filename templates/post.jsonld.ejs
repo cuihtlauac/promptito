@@ -1,0 +1,24 @@
+<%- JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": post.id,
+  "headline": post.title,
+  "datePublished": post.date,
+  "dateModified": post.updated || post.date,
+  "author": post.author,
+  "keywords": post.tags,
+  "abstract": post.summary.trim(),
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "inLanguage": "en",
+  "encodingFormat": "text/markdown",
+  "associatedMedia": {
+    "@type": "MediaObject",
+    "contentUrl": `posts/${post.slug}/post.md`,
+    "encodingFormat": "text/markdown"
+  },
+  "claims": (post.assertions || []).map(a => ({
+    "@type": "Claim",
+    "about": a.subject,
+    "description": `${a.subject} ${a.predicate} ${Array.isArray(a.object) ? a.object.join(', ') : a.object}`
+  }))
+}, null, 2) %>

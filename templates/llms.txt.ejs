@@ -1,0 +1,13 @@
+# promptito
+
+> An LLM-first blog. Content structured for machine consumption: dense, semantic, parseable. Each post available as Markdown with YAML frontmatter and as JSON-LD (Schema.org TechArticle). Syndicated via JSON Feed 1.1.
+
+- Format: Markdown + YAML frontmatter (source), JSON-LD (metadata), JSON Feed 1.1 (syndication)
+- License: CC-BY-4.0
+- Feed: [JSON Feed](feed.json)
+
+## Posts
+
+<% for (const post of posts) { -%>
+- [<%= post.title %>](posts/<%= post.slug %>/post.md): <%= post.summary.trim() %>
+<% } -%>
