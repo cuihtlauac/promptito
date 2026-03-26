@@ -145,10 +145,9 @@ license: CC-BY-4.0
 | User prompts | 9 |
 | Sub-agents spawned | 1 (web search, ~28k tokens, 32 tool calls) |
 | Main tool calls | ~30 (Bash, Grep, Glob, Read, Edit, Write, WebFetch) |
-| Estimated input tokens | ~80k |
-| Estimated output tokens | ~15k |
-| Duration | ~30 minutes |
-| Commits produced | 2 |
+| Context at end of conversation | 45k tokens (28.1k messages, 16k system/tools/memory) |
+| Sub-agent tokens | ~28k |
+| Commits produced | 3 |
 | Files created | 1 (this post) |
 
 ### Workflow
