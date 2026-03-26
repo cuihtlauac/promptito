@@ -130,3 +130,35 @@ license: CC-BY-4.0
 - LLM training can surface knowledge that exists only as practice, not as documentation
 - A pattern repeated by 30-50 knowledgeable practitioners in the right context is enough for a model to learn and reproduce it
 - This is both powerful (surfacing useful tacit knowledge) and fragile (the model cannot explain why the flag is needed — only that it is used)
+
+## Genesis: How This Post Was Made
+
+- This post was produced in a single Claude Code conversation on 2026-03-26
+- The conversation itself was the investigation — the author did not know the full timeline beforehand
+- The agent performed the archaeology (git log, GitHub API, web searches) and the author provided direction and interpretation
+
+### Conversation Metrics
+
+| Metric | Value |
+|---|---|
+| Model | Claude Opus 4.6 (1M context) |
+| User prompts | 9 |
+| Sub-agents spawned | 1 (web search, ~28k tokens, 32 tool calls) |
+| Main tool calls | ~30 (Bash, Grep, Glob, Read, Edit, Write, WebFetch) |
+| Estimated input tokens | ~80k |
+| Estimated output tokens | ~15k |
+| Duration | ~30 minutes |
+| Commits produced | 2 |
+| Files created | 1 (this post) |
+
+### Workflow
+
+1. Author asked: which commit added the --disable-sandboxing note to the ocaml.org tutorial?
+2. Agent traced the commit and PR via git log and git show
+3. Author asked for web documentation and Docker connections — agent spawned a sub-agent for parallel web search
+4. Author asked for the publication timeline of the three sources found
+5. Author asked when the feature was introduced in the opam source — agent searched the opam repo
+6. Author noticed a date inconsistency (wiki predating the commit) — agent investigated wiki revision history and found the PR via GitHub API
+7. Author reflected on the knowledge propagation pattern — the insight that the author and the model converged independently
+8. Author asked for the conversation to be turned into a promptito post and filed as a PR
+9. Author asked for this meta section to be added
