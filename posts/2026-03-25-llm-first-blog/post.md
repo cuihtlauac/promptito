@@ -3,7 +3,7 @@ id: "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 slug: llm-first-blog
 title: "Bootstrapping the Promptito Blog"
 date: 2026-03-25
-updated: 2026-03-25
+updated: 2026-03-27
 author:
   name: Cuihtlauac Alvarado
 tags: [meta, llm, structured-data, machine-readable, json-ld, llms-txt]
@@ -23,6 +23,12 @@ assertions:
   - subject: promptito/format
     predicate: uses
     object: [Markdown+YAML, JSON-LD, JSON-Feed-1.1, llms.txt]
+  - subject: natural-language-prose
+    predicate: is-redundant-when
+    object: both-producer-and-consumer-are-LLMs
+  - subject: structured-content
+    predicate: reduces
+    object: [inference-energy, token-count, writing-time, reading-time]
   - subject: LLM-first-content
     predicate: differs-from
     object: human-first-content
@@ -34,13 +40,16 @@ assertions:
     object: [agent-ingestion, structured-generation, human-review]
   - subject: promptito/philosophy
     predicate: inspired-by
-    object: [construction-lines-in-geometry, Jean-Nouvel-visible-chalk-lines]
+    object: [construction-lines-in-geometry, Jean-Nouvel-Nemausus-visible-construction-marks, Hergé-Studios-Hergé-division-of-labor]
   - subject: this-post
     predicate: bootstrapped-via
     object: single-Claude-Code-session
   - subject: this-post/metrics
     predicate: involved
     object: [20-user-prompts, ~50k-tokens, 5-commits, 12-files]
+  - subject: this-post/update-2026-03-27
+    predicate: demonstrates
+    object: [low-friction-authoring, fuzzy-memory-to-structured-content, insomnia-session, agent-fact-checking]
 related: []
 references:
   - url: https://cuihtlauac.pages.dev
@@ -58,6 +67,29 @@ references:
   - url: https://github.com/cuihtlauac/promptito/blob/main/SPEC.md
     label: Promptito Post Format Specification
     description: Self-contained spec for the structured post format
+  - url: https://fr.wikipedia.org/wiki/Studios_Herg%C3%A9
+    label: "Studios Hergé — Wikipédia"
+    description: >
+      History of Studios Hergé (founded 1950): Hergé retained story,
+      storyboard, and character pencils; assistants Bob de Moor,
+      Jacques Martin, and Roger Leloup handled backgrounds, inking,
+      and final rendering. Illustrates division of labor between
+      creative direction and execution.
+  - url: https://fr.wikipedia.org/wiki/Mise_en_couleur_(bande_dessin%C3%A9e)
+    label: "Mise en couleur (bande dessinée) — Wikipédia"
+    description: >
+      Colouring in Franco-Belgian comics has been a separate specialized
+      trade (coloriste) since the 1940s, distinct from the main artist.
+      Transitioned from hand-painted gouache on blue-line proofs to
+      digital tools in the 1990s–2000s.
+  - url: https://www.jeannouvel.com/en/projects/nemausus/
+    label: "Nemausus — Ateliers Jean Nouvel"
+    description: >
+      Jean Nouvel's Nemausus social housing project (Nîmes, 1987).
+      Raw concrete walls with visible construction-site markings —
+      including cordeau à tracer (chalk snap-line) traces — were
+      preserved by design; tenants were contractually prohibited
+      from covering them.
   - url: https://llmstxt.org
     label: llms.txt specification
     description: The standard for LLM-friendly site indexes
@@ -81,8 +113,18 @@ LLM-first blog: a publication where the primary audience is large language model
 - An author can ask an LLM to write a blog post in any language, but this creates ambiguity: the reader cannot tell who wrote it — the human or the machine
 - promptito makes the roles explicit: ideas, facts, and opinions originate from the human author (Cuihtlauac Alvarado); structuring and formatting are delegated to agents
 - This separation is visible by design, not hidden
-- Analogy: a geometry teacher's rule — "don't erase the construction lines"; Jean Nouvel's architecture — blue chalk lines required to remain visible in the finished building
+- Analogy: a geometry teacher's rule — "don't erase the construction lines"; Jean Nouvel's Nemausus social housing (Nîmes, 1987) — construction-site markings, including cordeau à tracer (chalk snap-line) traces, were deliberately left visible on raw concrete walls, and tenants were contractually prohibited from covering them
+- Analogy: Hergé and the bande dessinée studio model — Hergé drew the first Tintin albums solo, but from the creation of Studios Hergé (1950) onward, he focused on story, storyboard, and character pencils while assistants (Bob de Moor, Jacques Martin, Roger Leloup) handled backgrounds, inking (encrage), and final rendering (mise au net). The author's role shifted from sole craftsman to creative director. In the broader BD industry, colouring (mise en couleur) has been a separate specialized trade since the 1940s — performed by dedicated coloristes, not the main artist — and later transitioned to digital tools. promptito follows the same logic: the author provides the creative substance, agents handle the rendering
 - Engineering should be explicit and self-explanatory
+
+### Redundant intermediary
+
+- Common pipeline: an author asks an LLM to write prose, a reader asks another LLM to summarize, translate, simplify, or rewrite that prose
+- The natural language in the middle has no raison d'être — it is LLM at both ends
+- Eliminating the prose intermediary speeds up writing (no need to craft sentences), speeds up reading (fewer tokens to ingest), and reduces inference energy
+- Energy scales linearly with generated tokens and superlinearly with ingested tokens (quadratic self-attention in transformers); fewer tokens = less compute at both ends
+- Caveat: if a human eventually needs prose, the generation cost is deferred, not eliminated — but promptito handles this by exporting natural language on demand rather than storing it as the source of truth
+- Net effect: structured-to-structured pipelines are faster and more energy-efficient than prose-mediated ones; prose is generated only when a human is actually in the loop
 
 ### Machine audience
 
@@ -185,7 +227,7 @@ Establishing authorship transparency as a core value.
 
 > "Facts, motivation and anecdote to add: I want to make explicit the way I turn my ideas into artefacts. [...] That also reminds me when my math teacher telling me: don't erase the constructions lines when making a geometrical drawing. Also reminds me the blue chalk lines required to remain visible in a Jean Nouvel building."
 
-The philosophical motivation — making the engineering visible.
+The philosophical motivation — making the engineering visible. The "blue chalk lines" refer to cordeau à tracer (chalk snap-line) marks at Jean Nouvel's Nemausus housing project in Nîmes.
 
 > "You got it wrong, don't edit post-fr.md. That's posts/2026-03-25-llm-first-blog/post.md that needs to be edited with the semantic content of what I wrote. Write in the CLAUDE.md, that's the workflow I intend to use."
 
@@ -198,3 +240,14 @@ Led to the export pipeline design — a fresh agent context receiving only the p
 > "Update the first post with ad-hoc links to allow an LLM to unroll everything autonomously."
 
 The insight that posts must be self-contained entry points — an LLM should be able to follow references and reconstruct all context without external guidance.
+
+## Subsequent Update: 2026-03-27 (insomnia session, ~02:00–03:00 CET)
+
+The author, unable to sleep, recalled vague memories of analogies that felt relevant to the post's motivation section: Jean Nouvel's Nemausus construction marks, Hergé's studio division of labor, and the redundancy of natural language as intermediary between LLMs. Over ~5 prompts, the agent fact-checked each claim against web sources, corrected inaccuracies (e.g., "blue chalk lines in a Jean Nouvel building" refined to the specific Nemausus project and cordeau à tracer traces), selected appropriate references, and integrated the verified material into the post.
+
+### Workflow demonstrated
+
+- Author's input: fuzzy recollections and half-formed intuitions, not polished ideas
+- Agent's role: fact-checking, sourcing references, correcting details, structuring the material into the existing post format
+- Result: three new motivation elements added (Nemausus corrected, BD studio analogy, redundant intermediary argument) with references, in a single late-night session
+- This illustrates the low-friction authoring loop: the author does not need to research, write, or format — only to remember roughly and point the agent in the right direction
