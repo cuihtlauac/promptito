@@ -1,4 +1,4 @@
-# promptito
+# [promptito](https://cuihtlauac.pages.dev)
 
 An LLM-first blog — structured content for silicon readers.
 
@@ -17,7 +17,6 @@ You choose the language, the length, and the style. The structured format gives 
 
 Raw posts are in [`posts/`](posts/). The full feed is at [`feed.json`](https://cuihtlauac.pages.dev/feed.json).
 
-**Live site**: [cuihtlauac.pages.dev](https://cuihtlauac.pages.dev)
 
 ## Format
 
