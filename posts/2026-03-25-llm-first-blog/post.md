@@ -47,7 +47,7 @@ assertions:
   - subject: promptito/human-versions
     predicate: hosted-in
     object: source-repository-not-deployed-site
-related: []
+related: [y-skill-origin]
 human_versions:
   - lang: en
     file: human.en.md
