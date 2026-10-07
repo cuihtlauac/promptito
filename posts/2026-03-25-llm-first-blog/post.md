@@ -3,7 +3,7 @@ id: "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 slug: llm-first-blog
 title: "Bootstrapping the Promptito Blog"
 date: 2026-03-25
-updated: 2026-03-25
+updated: 2026-10-07
 author:
   name: Cuihtlauac Alvarado
 tags: [meta, llm, structured-data, machine-readable, json-ld, llms-txt]
@@ -41,7 +41,16 @@ assertions:
   - subject: this-post/metrics
     predicate: involved
     object: [20-user-prompts, ~50k-tokens, 5-commits, 12-files]
+  - subject: this-post
+    predicate: has-human-version
+    object: en
+  - subject: promptito/human-versions
+    predicate: hosted-in
+    object: source-repository-not-deployed-site
 related: []
+human_versions:
+  - lang: en
+    file: human.en.md
 references:
   - url: https://cuihtlauac.pages.dev
     label: promptito (deployed site)
@@ -55,6 +64,9 @@ references:
   - url: https://github.com/cuihtlauac/promptito
     label: promptito project repository
     description: Source code, build system, and all posts
+  - url: https://github.com/cuihtlauac/promptito/blob/main/posts/2026-03-25-llm-first-blog/human.en.md
+    label: Human-readable version (en)
+    description: Narrative English rendering of this post, generated from the structured source; hosted in the source repository, not the deployed site
   - url: https://github.com/cuihtlauac/promptito/blob/main/SPEC.md
     label: Promptito Post Format Specification
     description: Self-contained spec for the structured post format
@@ -149,6 +161,7 @@ LLM-first blog: a publication where the primary audience is large language model
 - **No stop-word removal / telegraphic style**: modern LLMs handle natural prose; structure > compression tricks
 - **JSON Feed over RSS/Atom**: JSON is native to LLM tool-use pipelines; XML adds parsing overhead
 - **Assertions as triples**: lightweight knowledge graph per post, extractable without NLP
+- **Human versions live in the source repo, not the deployed site**: a post may declare `human_versions` — reviewed natural-language renderings stored as `human.<lang>.md` next to `post.md`. The blog remains LLM-first; human readers are linked out to GitHub's rendering or to an on-site client-side viewer (`read.html`) that fetches the raw file. No markdown-to-HTML conversion in the build
 
 ## Genesis: How This Post Was Made
 

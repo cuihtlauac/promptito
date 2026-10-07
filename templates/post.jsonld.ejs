@@ -11,11 +11,21 @@
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "inLanguage": "en",
   "encodingFormat": "text/markdown",
-  "associatedMedia": {
-    "@type": "MediaObject",
-    "contentUrl": `posts/${post.slug}/post.md`,
-    "encodingFormat": "text/markdown"
-  },
+  "associatedMedia": [
+    {
+      "@type": "MediaObject",
+      "contentUrl": `posts/${post.slug}/post.md`,
+      "encodingFormat": "text/markdown"
+    },
+    ...(post.humanVersions || []).map(v => ({
+      "@type": "MediaObject",
+      "name": `Human-readable version (${v.lang})`,
+      "contentUrl": v.source_url,
+      "encodingFormat": "text/markdown",
+      "inLanguage": v.lang,
+      "description": "Narrative rendering for human readers, hosted in the source repository"
+    }))
+  ],
   "claims": (post.assertions || []).map(a => ({
     "@type": "Claim",
     "about": a.subject,

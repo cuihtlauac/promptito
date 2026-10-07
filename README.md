@@ -15,6 +15,8 @@ Posts here are not written in natural language. They are structured data designe
 
 You choose the language, the length, and the style. The structured format gives the LLM everything it needs to produce a faithful rendering — the ideas are all there, the presentation is up to you.
 
+**Prefer a pre-made human version?** Some posts ship a reviewed natural-language rendering, stored as `human.<lang>.md` next to the source post — in this repository, not on the deployed site. Read it rendered on GitHub, or via the site's client-side viewer (`read.html?p=posts/<dir>/human.<lang>.md`), which fetches the markdown straight from this repo and renders it in your browser. No HTML is generated or hosted; the markdown stays the only artifact.
+
 Raw posts are in [`posts/`](posts/). The full feed is at [`feed.json`](https://cuihtlauac.pages.dev/feed.json).
 
 

@@ -88,3 +88,7 @@ const result = execFileSync(
 const outPath = join(TMP_DIR, `${slug}.${langCode}.md`);
 writeFileSync(outPath, result);
 console.log(`Written to ${outPath}`);
+console.log(`\nTo publish after review:`);
+console.log(`  1. mv ${outPath} posts/${postDir}/human.${langCode}.md`);
+console.log(`  2. declare it in the post frontmatter:`);
+console.log(`       human_versions:\n         - lang: ${langCode}\n           file: human.${langCode}.md`);
