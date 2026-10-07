@@ -69,6 +69,9 @@ assertions:
     predicate: ghost-written-by
     object: Claude Code, from the two founding chat transcripts
 related: [llm-first-blog]
+human_versions:
+  - lang: en
+    file: human.en.md
 references:
   - url: https://github.com/cuihtlauac/y-skill
     label: y-skill repository

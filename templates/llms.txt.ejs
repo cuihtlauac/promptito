@@ -19,4 +19,7 @@
 
 <% for (const post of posts) { -%>
 - [<%= post.title %>](posts/<%= post.slug %>/post.md): <%= post.summary.trim() %>
+<% for (const v of post.humanVersions) { -%>
+  - Human-readable version (<%= v.lang %>): [rendered](<%= v.reader_url %>), [markdown source on GitHub](<%= v.source_url %>) — not deployed here; lives in the source repository
+<% } -%>
 <% } -%>

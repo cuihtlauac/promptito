@@ -21,6 +21,9 @@ assertions:                      # Optional, list of structured claims
     predicate: <string>          # Relationship (e.g. is-a, uses, optimizes-for)
     object: <string or list>     # Target(s) of the relationship
 related: <list of slugs, optional> # Slugs of related posts
+human_versions:                    # Optional, reviewed natural-language renderings
+  - lang: <string, required>       # BCP 47 language code (e.g. en, fr)
+    file: <string, required>       # Filename next to post.md (convention: human.<lang>.md)
 references:                        # Required, list of external links for full context
   - url: <string, required>        # URL to the resource
     label: <string, required>      # Short name
@@ -36,6 +39,7 @@ license: <string, required>      # SPDX license identifier (e.g. CC-BY-4.0)
 - **summary**: Should be information-dense. Used in `llms.txt`, JSON Feed, and JSON-LD output. No fluff.
 - **assertions**: Subject-predicate-object triples representing key claims. These form a lightweight per-post knowledge graph. Objects can be a single string or a list of strings.
 - **references**: Links to external resources needed for complete understanding. An LLM reading a post in isolation must be able to follow these to unroll all context autonomously. At minimum: the project repo, the format spec, and the blog feed.
+- **human_versions**: Reviewed natural-language renderings of the post, stored as `human.<lang>.md` next to `post.md`. They are committed to the source repository but **not deployed**: the blog stays LLM-first, and human readers are linked out to GitHub's markdown rendering or to the on-site client-side viewer (`read.html?p=posts/<dir>/human.<lang>.md`), which fetches the raw file from the repository and renders it in the browser. Each declared file must exist (the build fails otherwise). The rendering must end with a link back to the structured source post.
 
 ## Markdown Body Conventions
 
@@ -102,12 +106,13 @@ The build system generates the following from each post:
 
 Schema.org `TechArticle` with:
 - `@id`, `headline`, `datePublished`, `dateModified`, `author`, `keywords`, `abstract`
-- `associatedMedia` linking to the source `post.md`
+- `associatedMedia` linking to the source `post.md` and to any declared human versions (GitHub URLs)
 - `claims` array with `Claim` objects derived from assertions
 
 ### Site-level files
 
-- `llms.txt` — site index linking to all posts (per [llmstxt.org](https://llmstxt.org) spec)
+- `llms.txt` — site index linking to all posts (per [llmstxt.org](https://llmstxt.org) spec), with sub-entries for human versions
 - `llms-full.txt` — all post content concatenated with metadata headers
-- `feed.json` — JSON Feed 1.1 with `_promptito` extension carrying assertions and relationships
+- `feed.json` — JSON Feed 1.1 with `_promptito` extension carrying assertions, relationships, and human version links
 - `robots.txt` — permissive (`Allow: /`)
+- `read.html` — static client-side viewer for human versions; fetches `human.<lang>.md` raw from the source repository and renders it in the browser (no markdown-to-HTML conversion in the build)

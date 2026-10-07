@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>promptito — reader</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; max-width: 680px; margin: 0 auto; padding: 2rem 1rem 4rem; color: #111; line-height: 1.6; }
+nav { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #111; padding-bottom: 0.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+h2 { font-size: 1.2rem; margin-top: 2rem; }
+a { color: #111; }
+blockquote { border-left: 3px solid #111; margin: 1rem 0; padding: 0.25rem 1rem; color: #444; }
+code { background: #f2f2f2; padding: 0.1em 0.3em; font-size: 0.9em; }
+pre code { display: block; padding: 1rem; overflow-x: auto; }
+hr { border: none; border-top: 1px solid #ccc; margin: 2rem 0; }
+.status { color: #666; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/">promptito</a>
+  <a id="source-link" href="https://github.com/cuihtlauac/promptito" rel="noopener">source</a>
+</nav>
+<main id="content"><p class="status">Loading…</p></main>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+// Renders a human-readable version straight from its markdown source in the
+// GitHub repo — the blog deploys no converted HTML; rendering happens here,
+// in the reader's browser, at view time.
+const RAW_BASE = "https://raw.githubusercontent.com/cuihtlauac/promptito/main/";
+const BLOB_BASE = "https://github.com/cuihtlauac/promptito/blob/main/";
+const el = document.getElementById("content");
+const p = new URLSearchParams(location.search).get("p") || "";
+// Only files committed as human versions in this repo may be rendered.
+if (!/^posts\/[A-Za-z0-9._-]+\/human\.[a-z]{2}(-[A-Za-z]{2,4})?\.md$/.test(p)) {
+  el.innerHTML = '<p class="status">Missing or invalid <code>?p=</code> parameter. Expected a path like <code>posts/&lt;dir&gt;/human.&lt;lang&gt;.md</code>.</p>';
+} else {
+  document.getElementById("source-link").href = BLOB_BASE + p;
+  fetch(RAW_BASE + p)
+    .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+    .then((md) => {
+      el.innerHTML = marked.parse(md);
+      const h1 = el.querySelector("h1");
+      if (h1) document.title = h1.textContent + " — promptito";
+    })
+    .catch((e) => {
+      el.textContent = "";
+      const msg = document.createElement("p");
+      msg.className = "status";
+      msg.textContent = "Could not load " + p + " (" + e.message + ").";
+      el.appendChild(msg);
+    });
+}
+</script>
+</body>
+</html>

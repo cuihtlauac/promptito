@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import ejs from "ejs";
 import matter from "gray-matter";
@@ -9,6 +9,24 @@ const BUILD_DIR = join(ROOT, "build");
 const TEMPLATES_DIR = join(ROOT, "templates");
 
 const BASE_URL = "https://cuihtlauac.pages.dev";
+const REPO_URL = "https://github.com/cuihtlauac/promptito";
+
+// Human-readable versions (human.<lang>.md) are committed next to post.md but
+// never deployed: the blog stays LLM-first and links humans out to the source
+// repo (GitHub blob rendering) or to the on-site client-side viewer read.html.
+function resolveHumanVersions(post) {
+  return (post.human_versions || []).map((v) => {
+    const path = `posts/${post._dir}/${v.file}`;
+    if (!existsSync(join(ROOT, path))) {
+      throw new Error(`${post.slug}: declared human version missing: ${path}`);
+    }
+    return {
+      lang: v.lang,
+      source_url: `${REPO_URL}/blob/main/${path}`,
+      reader_url: `${BASE_URL}/read.html?p=${path}`,
+    };
+  });
+}
 
 // ---------------------------------------------------------------------------
 // 1. Discover and parse posts
@@ -23,7 +41,9 @@ const posts = postDirs.map((dir) => {
   const filePath = join(POSTS_DIR, dir, "post.md");
   const raw = readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-  return { ...data, content, _dir: dir };
+  const post = { ...data, content, _dir: dir };
+  post.humanVersions = resolveHumanVersions(post);
+  return post;
 });
 
 console.log(`Found ${posts.length} post(s)`);
@@ -112,6 +132,7 @@ const feed = {
       assertions: post.assertions || [],
       related: post.related || [],
       references: post.references || [],
+      human_versions: post.humanVersions,
     },
   })),
 };
@@ -139,10 +160,12 @@ writeFileSync(join(BUILD_DIR, "index.html"), indexHtml);
 console.log("  ✓ index.html");
 
 // ---------------------------------------------------------------------------
-// 8. Copy SPEC.md
+// 8. Copy SPEC.md and read.html (client-side viewer for human versions)
 // ---------------------------------------------------------------------------
 cpSync(join(ROOT, "SPEC.md"), join(BUILD_DIR, "SPEC.md"));
 console.log("  ✓ SPEC.md");
+cpSync(join(TEMPLATES_DIR, "read.html"), join(BUILD_DIR, "read.html"));
+console.log("  ✓ read.html");
 
 // ---------------------------------------------------------------------------
 // 9. Copy CLAUDE.md (authoring workflow for LLM agents)

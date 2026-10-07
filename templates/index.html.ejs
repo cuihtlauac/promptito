@@ -35,7 +35,7 @@ a { color: #111; }
 
 <ul>
 <% for (const post of posts) { -%>
-<li><a href="posts/<%= post.slug %>/post.md"><%= post.title %></a> <span class="date">&mdash; <%= new Date(post.date).toISOString().split('T')[0] %></span></li>
+<li><a href="posts/<%= post.slug %>/post.md"><%= post.title %></a> <span class="date">&mdash; <%= new Date(post.date).toISOString().split('T')[0] %></span><% for (const v of post.humanVersions) { %> <span class="date">&middot;</span> <a href="<%= v.reader_url %>">for humans (<%= v.lang %>)</a><% } %></li>
 <% } -%>
 </ul>
 
