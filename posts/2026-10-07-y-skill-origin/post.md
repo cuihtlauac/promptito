@@ -108,7 +108,7 @@ license: CC-BY-4.0
 
 - Origin story of the y-skill project: two chat sessions (Gemini, then Claude) on 5 October 2026, followed by two days of repository work (6–7 October 2026)
 - Arc: attention → lambda calculus → natural-language Y combinator → story turned skill
-- This post is the structured ingestion of ORIGIN.md, the narrative version kept in the y-skill repository (see references); the narrative was written first, by Claude Code, from the session transcripts
+- This post is the structured ingestion of [ORIGIN.md](https://github.com/cuihtlauac/y-skill/blob/main/ORIGIN.md), the narrative (human-readable) version kept in the y-skill repository; the narrative was written first, by Claude Code, from the session transcripts
 
 ## Attention as probabilistic lambda calculus
 
