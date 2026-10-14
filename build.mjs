@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, existsSync
 import { join, resolve } from "node:path";
 import ejs from "ejs";
 import matter from "gray-matter";
+import { marked } from "marked";
 
 const ROOT = resolve(".");
 const POSTS_DIR = join(ROOT, "posts");
@@ -24,6 +25,7 @@ function resolveHumanVersions(post) {
       lang: v.lang,
       source_url: `${REPO_URL}/blob/main/${path}`,
       reader_url: `${BASE_URL}/read.html?p=${path}`,
+      markdown: readFileSync(join(ROOT, path), "utf-8"),
     };
   });
 }
@@ -140,6 +142,53 @@ writeFileSync(join(BUILD_DIR, "feed.json"), JSON.stringify(feed, null, 2));
 console.log("  ✓ feed.json");
 
 // ---------------------------------------------------------------------------
+// 5b. Generate per-language RSS feeds of human versions (Substack bridge)
+//
+// The blog is LLM-first and never renders Markdown to HTML — except here. RSS
+// (and Substack's importer) need HTML in <content:encoded>, so this feed is the
+// single sanctioned Markdown→HTML conversion. It carries only reviewed human
+// versions (human.<lang>.md); posts without one never appear. One file per
+// language = one channel = one Substack publication.
+// ---------------------------------------------------------------------------
+const rssTemplate = readFileSync(join(TEMPLATES_DIR, "rss.xml.ejs"), "utf-8");
+
+const xmlEscape = (s) =>
+  String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+
+// Guard against a literal ]]> inside CDATA-wrapped HTML.
+const cdataGuard = (s) => String(s).replace(/]]>/g, "]]]]><![CDATA[>");
+
+// Drop a single leading "# H1" line — Substack renders the title separately.
+const stripLeadingH1 = (md) => md.replace(/^\s*#\s+.*(?:\r?\n|$)/, "");
+
+const humanByLang = {};
+for (const post of posts) {
+  for (const v of post.humanVersions) {
+    (humanByLang[v.lang] ??= []).push({ post, v });
+  }
+}
+
+for (const [lang, entries] of Object.entries(humanByLang)) {
+  const items = entries.map(({ post, v }) => ({
+    title: xmlEscape(post.title),
+    link: v.reader_url,
+    guid: post.id,
+    pubDate: new Date(post.date).toUTCString(),
+    description: xmlEscape(post.summary.trim()),
+    contentHtml: cdataGuard(marked.parse(stripLeadingH1(v.markdown))),
+  }));
+  const feedUrl = `${BASE_URL}/feed.${lang}.xml`;
+  const rss = ejs.render(rssTemplate, { lang, items, feedUrl, BASE_URL });
+  writeFileSync(join(BUILD_DIR, `feed.${lang}.xml`), rss);
+  console.log(`  ✓ feed.${lang}.xml`);
+}
+
+// ---------------------------------------------------------------------------
 // 6. Generate robots.txt
 // ---------------------------------------------------------------------------
 writeFileSync(
@@ -200,6 +249,9 @@ writeFileSync(
 
 /feed.json
   Content-Type: application/feed+json; charset=utf-8
+
+/*.xml
+  Content-Type: application/rss+xml; charset=utf-8
 `
 );
 console.log("  ✓ _headers");

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>promptito — human versions (<%= lang %>)</title>
+    <link><%= BASE_URL %></link>
+    <atom:link href="<%= feedUrl %>" rel="self" type="application/rss+xml"/>
+    <description>Human-readable renderings of promptito posts.</description>
+    <language><%= lang %></language>
+<% for (const it of items) { -%>
+    <item>
+      <title><%= it.title %></title>
+      <link><%= it.link %></link>
+      <guid isPermaLink="false"><%= it.guid %></guid>
+      <pubDate><%= it.pubDate %></pubDate>
+      <description><%= it.description %></description>
+      <content:encoded><![CDATA[<%- it.contentHtml %>]]></content:encoded>
+    </item>
+<% } -%>
+  </channel>
+</rss>

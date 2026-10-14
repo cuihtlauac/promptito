@@ -25,6 +25,7 @@ Each post is a `post.md` with YAML frontmatter containing: id (URN UUID), slug, 
 - `llms.txt` — site index per llmstxt.org spec (with human-version sub-entries)
 - `llms-full.txt` — all content concatenated
 - `feed.json` — JSON Feed 1.1 with `_promptito` extension (includes human version links)
+- `feed.<lang>.xml` — per-language RSS 2.0 feed of the human versions only (for RSS/Substack syndication). The **only** place Markdown is rendered to HTML (into `<content:encoded>`): a deliberate, scoped exception to the Markdown-never-becomes-HTML convention, justified because RSS/Substack require HTML. Posts without a `human.<lang>.md` never appear, so the feed stays opt-in and the blog stays LLM-first.
 - `posts/<slug>/post.jsonld` — JSON-LD (Schema.org TechArticle)
 - `robots.txt` — permissive
 - `index.html` — minimal human landing page
@@ -56,7 +57,7 @@ Once a natural-language export has been reviewed and approved, it can be publish
 
 1. Move it to `posts/<dir>/human.<lang>.md` (next to `post.md`)
 2. Declare it in the post's frontmatter under `human_versions: [{lang, file}]`
-3. The build then links it from llms.txt, index.html, feed.json, and the JSON-LD
+3. The build then links it from llms.txt, index.html, feed.json, and the JSON-LD, and includes it (rendered to HTML) in the per-language RSS feed `feed.<lang>.xml`
 
 Human versions are committed to the repo but **not deployed** — the blog stays LLM-first. Human readers reach them via GitHub's rendering (`blob/main` URL) or the on-site `read.html?p=posts/<dir>/human.<lang>.md` viewer, which fetches the raw file from GitHub and renders it client-side. The build fails if a declared file is missing. Links point at `main`, so a human version is only reachable once merged.
 
